@@ -25,13 +25,15 @@ const Feed = () => {
     setSearchText(e.target.value)
   }
 
-  
-
   useEffect(() => {
     const fetchPosts = async () => {
-    const response = await fetch('/api/prompt')
-    const data = await response.json()
-    setPosts(data)
+    try {
+      const response = await fetch('/api/prompt?' + new Date().getTime())
+      const data = await response.json()
+      setPosts(data)
+    } catch (error) {
+      console.log(error)
+    }
   }
     fetchPosts();
   }, [])
@@ -41,7 +43,6 @@ const Feed = () => {
       <form  className="relative w-full flex-center">
         <input type="text" placeholder="Search for a Prompt" value={searchText} required onChange={handleSearchChange} className="search_input peer" />
       </form>
-
       <PromptCardList data={posts} handleTagClick={() => {}}/>
     </section>
   )
