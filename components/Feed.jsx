@@ -25,13 +25,14 @@ const Feed = () => {
     setSearchText(e.target.value)
   }
 
-  const fetchPosts = async () => {
-    const response = await fetch('/api/prompt')
+  
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+    const response = await fetch('/api/prompt', {next: {revalidate: 20}})
     const data = await response.json()
     setPosts(data)
   }
-
-  useEffect(() => {
     fetchPosts();
   }, [])
 
