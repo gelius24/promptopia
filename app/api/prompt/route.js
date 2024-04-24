@@ -2,7 +2,6 @@ import { connectToDB } from "@/utils/database"
 import Prompt from "@/models/prompt"
 
 export const GET = async (req) => {
-  console.log("fetching all posts...")
   try {
     await connectToDB()
     const prompts = await Prompt.find().populate('creator')
